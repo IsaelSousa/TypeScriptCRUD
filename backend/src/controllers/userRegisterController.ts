@@ -68,17 +68,16 @@ class userRegisterController {
     const user = await userRegister.findOne({ where: { email } })
 
     if(!user) {
-      return res.json(" Email Incorrect! ")
+      return res.sendStatus(400);
     }
 
     const passHash = await bcrypt.compare(password, user.password)
 
     if (!passHash) {
-      return res.json(" Password Incorrect! ")
+      return res.sendStatus(400);
     }
 
     return res.sendStatus(200);
-
   }
 }
 
